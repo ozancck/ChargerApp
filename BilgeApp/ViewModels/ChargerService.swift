@@ -65,7 +65,7 @@ class ChargerService: ObservableObject {
         return userChargers
     }
 
-    func isAvaliable(currentCharger: ChargereModel, rezervations: [Reservation]) -> Bool {
+    func isAvaliable(currentReservation: Reservation, rezervations: [Reservation]) -> Bool {
         for rezervation in rezervations {
             
             let string1 = "dd/MM/yyyy"
@@ -78,7 +78,7 @@ class ChargerService: ObservableObject {
             
 
 
-            if rezervation.charger == currentCharger {
+            if rezervation.id == currentReservation.id {
                 
                 let now = Date()
                 

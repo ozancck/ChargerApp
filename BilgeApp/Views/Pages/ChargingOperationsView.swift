@@ -9,7 +9,9 @@ import Firebase
 import SwiftUI
 
 struct ChargingOperationsView: View {
-    @State var selectdElement = ChargereModel(id: "", title: "", avaliable: 0, latitude: 12.22, longitude: 12.22)
+    
+    @State var selectedReservation = Reservation(id: "", startDate: "", startTime: "", endDate: "", endTime: "", userId: "", charger: ChargereModel(id: "", title: "", avaliable: 1, latitude: 0, longitude: 0))
+    
     @State var succes = true
     @State var clicked: Bool = true
     @StateObject var charger = ChargerService()
@@ -49,21 +51,26 @@ struct ChargingOperationsView: View {
                             VStack {
                                 Image(systemName: "battery.75")
                                     .font(.largeTitle)
-                                    .foregroundColor(self.selectdElement.avaliable == 0 && charger.isAvaliable(currentCharger: selectdElement, rezervations: rezervationViewModel.reservations) ? .green : .red)
+                                    .foregroundColor(self.selectedReservation.charger.avaliable == 0 && charger.isAvaliable(currentReservation: selectedReservation, rezervations: rezervationViewModel.reservations) ? .green : .red)
 
-                                Text(self.selectdElement.avaliable == 0 && charger.isAvaliable(currentCharger: selectdElement, rezervations: rezervationViewModel.reservations) ? "Musait" : "Musait Degil")
+                                Text(self.selectedReservation.charger.avaliable == 0 && charger.isAvaliable(currentReservation: selectedReservation, rezervations: rezervationViewModel.reservations) ? "Musait" : "Musait Degil")
                                     .font(.caption)
                                     .bold()
                                     .foregroundColor(.white)
+                                
+                                
+                                
+                               
+                                
 
                             }.padding(.horizontal)
 
-                            Picker("chargers", selection: $selectdElement) {
-                                ForEach(rezervationViewModel.myChargers) { element in
+                            Picker("chargers", selection: $selectedReservation) {
+                                ForEach(rezervationViewModel.reservations) { element in
                                     HStack {
                                         
-                                        Text(element.title)
-                                        if element.avaliable == 0 {
+                                        Text(element.charger.title)
+                                        if element.charger.avaliable == 0 {
                                             Image(systemName: "wifi")
 
                                         } else {
@@ -79,12 +86,33 @@ struct ChargingOperationsView: View {
                             }
                             .foregroundColor(.black)
                             .pickerStyle(.menu)
+                            
+                            
+                            VStack{
+                                HStack{
+                                    Text(self.selectedReservation.startDate)
+                                    Text(self.selectedReservation.startTime)
+                                    
+                                }
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor( charger.isAvaliable(currentReservation: selectedReservation, rezervations: rezervationViewModel.reservations) ? .green : .red)
+                                
+                                HStack{
+                                    Text(self.selectedReservation.endDate)
+                                    Text(self.selectedReservation.endTime)
+                                }
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor( charger.isAvaliable(currentReservation: selectedReservation, rezervations: rezervationViewModel.reservations) ? .green : .red)
+                          
+                            }
 
                             Spacer()
 
                             HStack {
                                 Text("Seçilen Charger:")
-                                Text("\(self.selectdElement.title)")
+                                Text("\(self.selectedReservation.charger.title)")
                                     .bold()
                             }
                         }
@@ -95,8 +123,8 @@ struct ChargingOperationsView: View {
                 HStack {
                     Button {
                         
-                            if self.selectdElement.id != "" {
-                                if self.selectdElement.avaliable == 0 && charger.isAvaliable(currentCharger: selectdElement, rezervations: rezervationViewModel.reservations){
+                        if self.selectedReservation.charger.id != "" {
+                            if self.selectedReservation.charger.avaliable == 0 && charger.isAvaliable(currentReservation: selectedReservation, rezervations: rezervationViewModel.reservations){
                                     let dateFormatter = DateFormatter()
                                     dateFormatter.dateStyle = .medium
                                     dateFormatter.timeStyle = .medium
@@ -115,7 +143,7 @@ struct ChargingOperationsView: View {
                                     self.currentProcessId = ref.documentID
                                     ref.setData([
                                         "userMail": user?.email ?? "",
-                                        "chargerTitle": selectdElement.title,
+                                        "chargerTitle": selectedReservation.charger.title,
                                         "chargeStartDate": dateString,
                                         "chargeStopDate": "",
                                         "totalTime": "",
@@ -130,7 +158,7 @@ struct ChargingOperationsView: View {
                                     self.clicked = false
 
                                     avaliable()
-                                    self.selectdElement.avaliable = 1
+                                self.selectedReservation.charger.avaliable = 1
 
                                 } else {
                                     print("hata")
@@ -144,7 +172,7 @@ struct ChargingOperationsView: View {
                             Text("Sarji Baslat")
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(selectdElement.avaliable == 0 && charger.isAvaliable(currentCharger: selectdElement, rezervations: rezervationViewModel.reservations)  ? .green : .red)
+                                .background(selectedReservation.charger.avaliable == 0 && charger.isAvaliable(currentReservation: selectedReservation, rezervations: rezervationViewModel.reservations)  ? .green : .red)
                                 .cornerRadius(15)
                         } else {
                             Text("Sarj Oluyor")
@@ -182,7 +210,7 @@ struct ChargingOperationsView: View {
                             }
 
                             avaliable()
-                            self.selectdElement.avaliable = 0
+                            self.selectedReservation.charger.avaliable = 0
 
                         } label: {
                             withAnimation {
@@ -210,9 +238,9 @@ struct ChargingOperationsView: View {
 
     func avaliable() {
         if clicked == false {
-            charger.updateAvaliable(param: selectdElement.id, avaliable: 1)
+            charger.updateAvaliable(param: selectedReservation.charger.id, avaliable: 1)
         } else {
-            charger.updateAvaliable(param: selectdElement.id, avaliable: 0)
+            charger.updateAvaliable(param: selectedReservation.charger.id, avaliable: 0)
         }
     }
 }
