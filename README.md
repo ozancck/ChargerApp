@@ -1,5 +1,5 @@
 # ChargerApp
-Google Firebase was used in this project.
+Google Firebase was used to develop this mobile application.
 
 ![1](https://github.com/ozancck/ChargerApp/assets/77584235/d1f8556b-9d4d-4855-8fe8-0f7950bf51dd)
 
