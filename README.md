@@ -1,6 +1,16 @@
 # ChargerApp
 Bilge Technology intern
 
+![1](https://github.com/ozancck/ChargerApp/assets/77584235/d1f8556b-9d4d-4855-8fe8-0f7950bf51dd)
+
+![2](https://github.com/ozancck/ChargerApp/assets/77584235/7099efae-1a4b-492c-8282-3feb83f0facd)
+
+
+![3](https://github.com/ozancck/ChargerApp/assets/77584235/36558e40-c4cf-434b-a10e-3789576e4ab0)
+![4](https://github.com/ozancck/ChargerApp/assets/77584235/8b0a87dc-245f-4a14-b9a4-3a73138eac76)
+![5](https://github.com/ozancck/ChargerApp/assets/77584235/75db703f-1a0a-4b73-a9bb-367245fb0c38)
+
+
 
 <img src="https://user-images.githubusercontent.com/77584235/229894193-4f8e8886-24f5-41b6-ac66-3a4cf8f7a731.png" width="200"/> <img src="https://user-images.githubusercontent.com/77584235/229894201-e7daa3de-f9fc-40fa-ad28-5abacd3f971b.png" width="200"/> 
 
