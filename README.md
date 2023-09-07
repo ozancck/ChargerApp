@@ -1,5 +1,5 @@
 # ChargerApp
-Bilge Technology intern
+Google Firebase was used in this project.
 
 ![1](https://github.com/ozancck/ChargerApp/assets/77584235/d1f8556b-9d4d-4855-8fe8-0f7950bf51dd)
 
